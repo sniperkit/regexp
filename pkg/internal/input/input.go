@@ -3,9 +3,10 @@ package input
 import (
 	"bytes"
 	"io"
-	"matloob.io/regexp/syntax"
 	"strings"
 	"unicode/utf8"
+
+	"github.com/sniperkit/regexp/pkg/syntax"
 )
 
 type Prefixer interface {
@@ -145,7 +146,6 @@ func (i *InputBytes) Rstep(pos int) (rune, int) {
 	}
 	return EndOfText, 0
 }
-
 
 func (i *InputBytes) CanCheckPrefix() bool {
 	return true

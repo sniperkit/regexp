@@ -4,7 +4,9 @@
 
 package syntax
 
-import "unicode"
+import (
+	"unicode"
+)
 
 // A patchList is a list of instruction pointers that need to be filled in (patched).
 // Because the pointers haven't been filled in yet, we can reuse their storage
@@ -72,7 +74,7 @@ type frag struct {
 }
 
 type compiler struct {
-	p *Prog
+	p        *Prog
 	reversed bool
 }
 

@@ -6,8 +6,9 @@ package regexp
 
 import (
 	"reflect"
-	"matloob.io/regexp/syntax"
 	"testing"
+
+	syntax "github.com/sniperkit/regexp/pkg/syntax"
 )
 
 var runeMergeTests = []struct {

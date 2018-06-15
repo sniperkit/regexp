@@ -4,7 +4,9 @@
 
 package syntax
 
-import "testing"
+import (
+	"testing"
+)
 
 var simplifyTests = []struct {
 	Regexp string

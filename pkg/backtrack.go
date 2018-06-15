@@ -15,8 +15,8 @@
 package regexp
 
 import (
-	"matloob.io/regexp/internal/input"
-	"matloob.io/regexp/syntax"
+	input "github.com/sniperkit/regexp/pkg/internal/input"
+	syntax "github.com/sniperkit/regexp/pkg/syntax"
 )
 
 // A job is an entry on the backtracker's job stack. It holds

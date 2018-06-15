@@ -6,9 +6,10 @@ package regexp
 
 import (
 	"bytes"
-	"matloob.io/regexp/syntax"
 	"sort"
 	"unicode"
+
+	syntax "github.com/sniperkit/regexp/pkg/syntax"
 )
 
 // "One-pass" regexp execution.

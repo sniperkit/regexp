@@ -1,6 +1,6 @@
 # go regexp + RE2 DFA port
 
-`import "matloob.io/regexp"`
+`import "github.com/sniperkit/regexp/pkg"`
 
 See [golang.org/cl/12081](https://golang.org/cl/12081)
 

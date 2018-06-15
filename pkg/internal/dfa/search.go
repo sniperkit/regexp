@@ -5,31 +5,32 @@
 package dfa
 
 import (
-	"sync"
 	"errors"
 	"math"
-	"matloob.io/regexp/internal/input"
-	"matloob.io/regexp/syntax"
+	"sync"
+
+	"github.com/sniperkit/regexp/pkg/internal/input"
+	"github.com/sniperkit/regexp/pkg/syntax"
 )
 
 type Searcher struct {
-	mu sync.Mutex
-	re               *syntax.Regexp
+	mu                 sync.Mutex
+	re                 *syntax.Regexp
 	prog               *syntax.Prog
-	prefixer input.Prefixer
+	prefixer           input.Prefixer
 	fdfa, ldfa, revdfa *DFA
 }
 
 func (s *Searcher) Init(prog *syntax.Prog, expr *syntax.Regexp, p input.Prefixer) {
 	s.prog = prog
 	s.re = expr
-	s.prefixer = p 
+	s.prefixer = p
 }
 
 var errNotDFA = errors.New("can't use dfa")
 
 func (s *Searcher) Search(i input.Input, pos int, longest bool, matchcap *[]int, ncap int) (bool, error) {
-	const budget = (2 << 20)/3
+	const budget = (2 << 20) / 3
 	rinput, ok := i.(input.Rinput)
 	if !ok {
 		return false, errNotDFA
@@ -65,7 +66,7 @@ func (s *Searcher) Search(i input.Input, pos int, longest bool, matchcap *[]int,
 	s.mu.Lock()
 	revdfa = s.revdfa
 	s.mu.Unlock()
-		
+
 	var matched bool
 	*matchcap = (*matchcap)[:ncap]
 	p, ep, matched, err := search(dfa, revdfa, rinput, pos)
@@ -79,7 +80,7 @@ func (s *Searcher) Search(i input.Input, pos int, longest bool, matchcap *[]int,
 }
 
 type searchParams struct {
-	input            input.Rinput
+	input             input.Rinput
 	startpos          int
 	anchored          bool
 	wantEarliestMatch bool
@@ -93,7 +94,7 @@ type searchParams struct {
 }
 
 func isanchored(prog *syntax.Prog) bool {
-	return prog.StartCond() & syntax.EmptyBeginText != 0
+	return prog.StartCond()&syntax.EmptyBeginText != 0
 }
 
 func search(d, reversed *DFA, i input.Rinput, startpos int) (start int, end int, matched bool, err error) {

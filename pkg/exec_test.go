@@ -11,11 +11,12 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"matloob.io/regexp/syntax"
 	"strconv"
 	"strings"
 	"testing"
 	"unicode/utf8"
+
+	syntax "github.com/sniperkit/regexp/pkg/syntax"
 )
 
 // TestRE2 tests this package's regexp API against test cases
@@ -675,7 +676,7 @@ const (
 	easy1  = "A[AB]B[BC]C[CD]D[DE]E[EF]F[FG]G[GH]H[HI]I[IJ]J$"
 	medium = "[XYZ]ABCDEFGHIJKLMNOPQRSTUVWXYZ$"
 	hard   = "[ -~]*ABCDEFGHIJKLMNOPQRSTUVWXYZ$"
-        hard1  = "ABCE|CDEG|GHIK|HIJM|IJKN|KLMO|LMNP|PQRT|STUW|WXYA"
+	hard1  = "ABCE|CDEG|GHIK|HIJM|IJKN|KLMO|LMNP|PQRT|STUW|WXYA"
 )
 
 func BenchmarkMatchEasy0_32(b *testing.B)   { benchmark(b, easy0, 32<<0) }
@@ -698,11 +699,11 @@ func BenchmarkMatchHard_1K(b *testing.B)    { benchmark(b, hard, 1<<10) }
 func BenchmarkMatchHard_32K(b *testing.B)   { benchmark(b, hard, 32<<10) }
 func BenchmarkMatchHard_1M(b *testing.B)    { benchmark(b, hard, 1<<20) }
 func BenchmarkMatchHard_32M(b *testing.B)   { benchmark(b, hard, 32<<20) }
-func BenchmarkMatchHard1_32(b *testing.B)    { benchmark(b, hard1, 32<<0) }
-func BenchmarkMatchHard1_1K(b *testing.B)    { benchmark(b, hard1, 1<<10) }
-func BenchmarkMatchHard1_32K(b *testing.B)   { benchmark(b, hard1, 32<<10) }
-func BenchmarkMatchHard1_1M(b *testing.B)    { benchmark(b, hard1, 1<<20) }
-func BenchmarkMatchHard1_32M(b *testing.B)   { benchmark(b, hard1, 32<<20) }
+func BenchmarkMatchHard1_32(b *testing.B)   { benchmark(b, hard1, 32<<0) }
+func BenchmarkMatchHard1_1K(b *testing.B)   { benchmark(b, hard1, 1<<10) }
+func BenchmarkMatchHard1_32K(b *testing.B)  { benchmark(b, hard1, 32<<10) }
+func BenchmarkMatchHard1_1M(b *testing.B)   { benchmark(b, hard1, 1<<20) }
+func BenchmarkMatchHard1_32M(b *testing.B)  { benchmark(b, hard1, 32<<20) }
 
 func TestLongest(t *testing.T) {
 	re, err := Compile(`a(|b)`)

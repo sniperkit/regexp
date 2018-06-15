@@ -11,8 +11,8 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"matloob.io/regexp/internal/input"
-	"matloob.io/regexp/syntax"
+	"github.com/sniperkit/regexp/pkg/internal/input"
+	"github.com/sniperkit/regexp/pkg/syntax"
 )
 
 // TODO(matloob): lowercase these before submitting
@@ -44,7 +44,7 @@ type DFA struct {
 	cacheMu     sync.Mutex
 	memBudget   int64
 	stateBudget int64 // is this used?
-	rangemap rangeMap
+	rangemap    rangeMap
 	stateCache  stateSet
 	start       [maxStart]startInfo
 }
@@ -88,18 +88,18 @@ var errFallBack = errors.New("falling back to NFA")
 func (d *DFA) loadNextState(from *State, r rune) *State {
 	// TODO(matloob): Do an atomic read from from.next and eliminate mutex.
 	runerange := d.rangemap.lookup(r)
-//	from.mu.Lock()
+	//	from.mu.Lock()
 	s := from.next[runerange]
-//	from.mu.Unlock()
+	//	from.mu.Unlock()
 	return s
 }
 
 func (d *DFA) storeNextState(from *State, r rune, to *State) {
 	// TODO(matloob): Do an atomic write to from.next and eliminate mutex.
 	runerange := d.rangemap.lookup(r)
-//	from.mu.Lock()
+	//	from.mu.Lock()
 	from.next[runerange] = to
-//	from.mu.Unlock()
+	//	from.mu.Unlock()
 }
 
 func (d *DFA) analyzeSearch(params *searchParams) bool {
@@ -187,9 +187,9 @@ func (d *DFA) analyzeSearchHelper(params *searchParams, info *startInfo, flags f
 		atomic.StoreInt64(&info.firstbyte, fbNone)
 		return true
 	}
-  
+
 	// TODO(matloob): we don't actually use firstbyte. fix that!
-  	firstByte := fbNone
+	firstByte := fbNone
 
 	if d.prefixer != nil && d.prefixer.Prefix() != "" {
 		firstByte = 'a' // dummy for now
@@ -548,7 +548,7 @@ func (d *DFA) stateToWorkq(s *State, q *workq) {
 
 func (d *DFA) runWorkqOnEmptyString(oldq *workq, newq *workq, flag flag) {
 	newq.clear()
-	for _, inst  := range oldq.elements() {
+	for _, inst := range oldq.elements() {
 		if oldq.isMark(inst) {
 			d.addToQueue(newq, int(mark), flag)
 		} else {
@@ -736,7 +736,7 @@ func (d *DFA) searchLoop(params *searchParams) bool {
 					p = ep
 					break
 				}
-				p++ 
+				p++
 			}
 		}
 

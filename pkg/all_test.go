@@ -5,10 +5,11 @@
 package regexp
 
 import (
-	"matloob.io/regexp/syntax"
 	"reflect"
 	"strings"
 	"testing"
+
+	syntax "github.com/sniperkit/regexp/pkg/syntax"
 )
 
 var good_re = []string{
